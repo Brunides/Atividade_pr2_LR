@@ -24,7 +24,7 @@ namespace Atividade_pr2_LR
             }
             catch (Exception err)
             {
-                throw new Exception("Erro: Problemas ao excluir usuário no banco.\n" + err.Message);
+                throw new Exception("Erro: Problemas ao excluir usuário no bancao.\n" + err.Message);
             }
             finally
             {
