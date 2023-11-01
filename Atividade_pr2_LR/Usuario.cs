@@ -21,7 +21,7 @@ namespace Atividade_pr2_LR
 
         }
 
-        public int Id
+        public int Id//y
         {
             get
             {
