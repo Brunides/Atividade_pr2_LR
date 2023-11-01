@@ -32,6 +32,7 @@ namespace Atividade_pr2_LR
                 // A senha está correta, então você pode abrir o novo formulário
                 Form3 form3 = new Form3();
                 form3.Show();
+                this.Close(); 
             }
             else
             {

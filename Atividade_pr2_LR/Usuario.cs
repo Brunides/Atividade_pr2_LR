@@ -8,35 +8,36 @@ namespace Atividade_pr2_LR
 {
     public class Usuario
     {
-        private string _id;
+        private int _id;
         private string _uSER_LR;
         private string _sENHA;
 
 
-        public Usuario(string user, string password)
+        public Usuario(int id,string user, string password)
         {
-
+            Id= id;
             USER_LR = user;
             SENHA = password;
 
         }
-        public string id
-        {
-            set
-            {
-                id = value;
 
-            }
+        public int Id
+        {
             get
             {
                 return _id;
+            }
+
+            set
+            {
+                _id = value;
             }
         }
         public string USER_LR
         { 
             set
             {
-                USER_LR = value;
+                _uSER_LR = value;
                 
             }
             get 
@@ -48,13 +49,39 @@ namespace Atividade_pr2_LR
         { 
             set
             {
-                SENHA = value;
+                _sENHA = value;
             }
             get
             {
                 return _sENHA;
             }
         }
+
+        public string user
+        {
+
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    throw new Exception("campo Nome está vazio");
+
+                _uSER_LR = value;
+            }
+            get { return _uSER_LR; }
+        }
+           public string password
+        {
+
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    throw new Exception("campo Nome está vazio");
+
+                _sENHA= value;
+            }
+            get { return _sENHA; }
+        }
+
 
     }
 }

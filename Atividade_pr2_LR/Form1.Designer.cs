@@ -37,6 +37,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.ListView1_LR = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -116,12 +120,44 @@
             // ListView1_LR
             // 
             this.ListView1_LR.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ListView1_LR.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.ListView1_LR.Font = new System.Drawing.Font("Comic Sans MS", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ListView1_LR.HideSelection = false;
-            this.ListView1_LR.Location = new System.Drawing.Point(90, 381);
+            this.ListView1_LR.Location = new System.Drawing.Point(90, 313);
             this.ListView1_LR.Name = "ListView1_LR";
-            this.ListView1_LR.Size = new System.Drawing.Size(55, 57);
+            this.ListView1_LR.Size = new System.Drawing.Size(587, 125);
             this.ListView1_LR.TabIndex = 9;
             this.ListView1_LR.UseCompatibleStateImageBehavior = false;
+            this.ListView1_LR.View = System.Windows.Forms.View.Details;
+            this.ListView1_LR.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListView1_LR_MouseDoubleClick_2);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "ID";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "USER";
+            this.columnHeader2.Width = 245;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "SENHA";
+            this.columnHeader3.Width = 285;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(704, 337);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "att";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // Form1
             // 
@@ -130,6 +166,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.ListView1_LR);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
@@ -157,6 +194,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ListView ListView1_LR;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.Button button2;
     }
 }
 

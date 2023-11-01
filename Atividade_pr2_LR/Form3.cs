@@ -90,5 +90,12 @@ namespace Atividade_pr2_LR
                 MessageBoxIcon.Exclamation);
             UpdateListView1();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+            UpdateListView1();
+        }
     }
 }
