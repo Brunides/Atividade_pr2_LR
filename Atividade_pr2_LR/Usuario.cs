@@ -8,6 +8,7 @@ namespace Atividade_pr2_LR
 {
     public class Usuario
     {
+
         private int _id;
         private string _uSER_LR;
         private string _sENHA;
@@ -82,6 +83,7 @@ namespace Atividade_pr2_LR
             get { return _sENHA; }
         }
 
+        
 
     }
 }

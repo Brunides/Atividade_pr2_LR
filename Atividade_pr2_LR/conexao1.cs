@@ -13,6 +13,7 @@ namespace Atividade_pr2_LR
 
 
     {
+        //asd
         //Propriedades ou atributos
         private readonly SqlConnection con;
         private readonly string DataBase = "Atividade_pr2";
