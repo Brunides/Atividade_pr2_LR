@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Linq;
 
 using System.Linq.Expressions;
-
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -32,34 +32,6 @@ namespace Atividade_pr2_LR
         {
             ListView1_LR.Items.Clear();
 
-
-
-
-
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            List<Usuario> usuarios = usuarioDAO.SelectUser();
-            try
-            {
-
-
-                //Enquanto for possível continuar a leitura das linhas que foram retornadas na consulta, execute.
-
-                foreach (Usuario usuario in usuarios)
-                {
-                    ListViewItem lv = new ListViewItem(usuario.Id.ToString());
-
-
-                    lv.SubItems.Add(usuario.USER_LR);
-                    lv.SubItems.Add(usuario.SENHA);
-                    ListView1_LR.Items.Add(lv);
-
-                }
-
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-            }
             conexao1 conn = new conexao1();
             SqlCommand sqlCom = new SqlCommand();
 
@@ -86,19 +58,17 @@ namespace Atividade_pr2_LR
 
                 }
                 dr.Close();
-
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
-
-
-
             finally
             {
                 conn.CloseConnection();
             }
+
+
         }
 
 
@@ -173,44 +143,57 @@ namespace Atividade_pr2_LR
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+
+            string senhaOriginal = textBox2.Text;
+
+            string senhaCriptografada = CriptografarSenha(senhaOriginal);
             try
             {
                 Usuario usuario1 = new Usuario(Id, textBox1.Text, textBox2.Text);
                 UsuarioDAO dAO = new UsuarioDAO();
                 dAO.Insertuser(Id, textBox1.Text, textBox2.Text);
 
+                MessageBox.Show(
+            "Login realizado com sucesso !",
+            "AVISO",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information
+            );
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message);
             }
 
-            string usuario = textBox1.Text, senha = textBox2.Text;
+          
 
 
-            conexao1 connection = new conexao1();
-            SqlCommand sqlCommand = new SqlCommand();
 
-            sqlCommand.Connection = connection.ReturnConnection();
-            sqlCommand.CommandText = @"INSERT INTO LOGIN_LR VALUES
-            (@USER_LR, @SENHA)";
-            sqlCommand.Parameters.AddWithValue("@USER_LR", usuario);
-            sqlCommand.Parameters.AddWithValue("@SENHA", senha);
-            sqlCommand.ExecuteNonQuery();
-
-            MessageBox.Show(
-                "Login realizado com sucesso !",
-                "AVISO",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-                );
 
 
             textBox1.Clear();
             textBox2.Clear();
 
             UpdateListView();
+
+            this.Close();
         }
+
+        public string CriptografarSenha(string SENHA)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(SENHA));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();//é
+            }
+        }
+
 
         private void buttonedit_Click_1(object sender, EventArgs e)
         {
@@ -254,27 +237,7 @@ namespace Atividade_pr2_LR
         private void button2_Click_2(object sender, EventArgs e)
         {
 
-            conexao1 connection = new conexao1();
-            SqlCommand sqlCommand = new SqlCommand();
-
-            sqlCommand.Connection = connection.ReturnConnection();
-            sqlCommand.CommandText = @"DELETE FROM LOGIN_LR WHERE Id = @id";
-            sqlCommand.Parameters.AddWithValue("@id", Id);
-            try
-            {
-                sqlCommand.ExecuteNonQuery();
-            }
-            catch (Exception err)
-            {
-                throw new Exception("Erro: Problemas ao excluir usuário no banco.\n" + err.Message);
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
-            textBox1.Clear();
-            textBox2.Clear();
-
+           
             UpdateListView();
         }
 
@@ -294,6 +257,11 @@ namespace Atividade_pr2_LR
             textBox1.Text = ListView1_LR.Items[index].SubItems[1].Text;
 
             textBox2.Text = ListView1_LR.Items[index].SubItems[2].Text;
+        }
+
+        private void ListView1_LR_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
