@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -63,8 +64,6 @@ namespace Atividade_pr2_LR
         public void Insertuser(int Id, string USER_LR, string SENHA)
         {
 
-           
-
 
             conexao1 connection = new conexao1();
             SqlCommand sqlCommand = new SqlCommand();
@@ -89,7 +88,7 @@ namespace Atividade_pr2_LR
             SqlCommand sqlCom = new SqlCommand();
 
             sqlCom.Connection = conn.ReturnConnection();
-            sqlCom.CommandText = "SELECT * FROM LOGIN_LR";
+            sqlCom.CommandText = "SELECT * FROM LOGIN_LR ";
 
             List<Usuario> list = new List<Usuario>();
             try
@@ -117,6 +116,7 @@ namespace Atividade_pr2_LR
             }
             return list;
         }
+        
     }
     }
 
