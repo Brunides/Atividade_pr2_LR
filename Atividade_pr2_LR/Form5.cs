@@ -30,5 +30,11 @@ namespace Atividade_pr2_LR
             form1.Show();
           
         }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            Form8 form8 = new Form8();
+            form8.Show();
+        }
     }
 }

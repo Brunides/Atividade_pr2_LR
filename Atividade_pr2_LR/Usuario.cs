@@ -12,17 +12,22 @@ namespace Atividade_pr2_LR
         private int _id;
         private string _uSER_LR;
         private string _sENHA;
+        private int _tELEFONE;
+        private string _nOME;
+        private string _e_MAIL;
 
 
-        public Usuario(int id,string user, string password)
+        public Usuario(int id, int telefone,string nome, string email,string user, string password)
         {
             Id= id;
             USER_LR = user;
             SENHA = password;
+          
+
 
         }
 
-        public int Id//y
+        public int Id
         {
             get
             {

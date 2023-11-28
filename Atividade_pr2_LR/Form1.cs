@@ -30,43 +30,7 @@ namespace Atividade_pr2_LR
         }
         private void UpdateListView()
         {
-            ListView1_LR.Items.Clear();
-
-            conexao1 conn = new conexao1();
-            SqlCommand sqlCom = new SqlCommand();
-
-            sqlCom.Connection = conn.ReturnConnection();
-            sqlCom.CommandText = "SELECT * FROM LOGIN_LR";
-
-            try
-            {
-                SqlDataReader dr = sqlCom.ExecuteReader();
-
-                //Enquanto for possível continuar a leitura das linhas que foram retornadas na consulta, execute.
-                while (dr.Read())
-                {
-
-                    string name = (string)dr["USER_LR"];
-
-                    string pass = (string)dr["SENHA"];
-
-                    ListViewItem lv = new ListViewItem(dr["id"].ToString());
-
-                    lv.SubItems.Add(name);
-                    lv.SubItems.Add(pass);
-                    ListView1_LR.Items.Add(lv);
-
-                }
-                dr.Close();
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-            }
-            finally
-            {
-                conn.CloseConnection();
-            }
+           
 
 
         }
@@ -144,28 +108,56 @@ namespace Atividade_pr2_LR
         private void button1_Click_1(object sender, EventArgs e)
         {
 
-            string senhaOriginal = textBox2.Text;
+            
+           
 
-            string senhaCriptografada = CriptografarSenha(senhaOriginal);
-            try
+            if (string.IsNullOrEmpty(textBox2.Text))
             {
-                Usuario usuario1 = new Usuario(Id, textBox1.Text, textBox2.Text);
-                UsuarioDAO dAO = new UsuarioDAO();
-                dAO.Insertuser(Id, textBox1.Text, textBox2.Text);
-
-                MessageBox.Show(
-            "Login realizado com sucesso !",
-            "AVISO",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Information
-            );
+                MessageBox.Show("Por favor, insira uma senha.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception error)
+            else
             {
-                MessageBox.Show(error.Message);
-            }
+                if (string.IsNullOrEmpty(textBox1.Text))
+                {
+                    MessageBox.Show("Por favor, escolha um nome de usuario.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(textBox3_1.Text))
+                    {
+                        MessageBox.Show("Por favor, insira uma senha.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        if (textBox2.Text == textBox3_1.Text)
+                        {
+                            try
+                            {
+                                Usuario usuario1 = new Usuario(Id, textBox1.Text, textBox2.Text);
+                                UsuarioDAO dAO = new UsuarioDAO();
+                                dAO.Insertuser(Id, textBox1.Text, textBox2.Text);
 
-          
+                                MessageBox.Show(
+                            "Login realizado com sucesso !",
+                            "AVISO",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                            );
+                            }
+                            catch (Exception error)
+                            {
+                                MessageBox.Show(error.Message);
+                            }
+                            this.Close();
+                        }
+
+                        else
+                        {
+                            MessageBox.Show("senhas diferentes, verifique a ortografia", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
 
 
 
@@ -176,24 +168,29 @@ namespace Atividade_pr2_LR
 
             UpdateListView();
 
-            this.Close();
+           
         }
 
-        public string CriptografarSenha(string SENHA)
+        private string CalcularSHA256(string input)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
+            using (SHA256 sha256 = SHA256.Create())
             {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(SENHA));
+                // Converte a string de entrada em bytes
+                byte[] bytes = Encoding.UTF8.GetBytes(input);
 
+                // Calcula o hash SHA-256
+                byte[] hashBytes = sha256.ComputeHash(bytes);
+
+                // Converte o resultado do hash em uma string hexadecimal
                 StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
+                for (int i = 0; i < hashBytes.Length; i++)
                 {
-                    builder.Append(bytes[i].ToString("x2"));
+                    builder.Append(hashBytes[i].ToString("x2"));
                 }
-                return builder.ToString();//é
+
+                return builder.ToString();
             }
         }
-
 
         private void buttonedit_Click_1(object sender, EventArgs e)
         {
@@ -249,19 +246,18 @@ namespace Atividade_pr2_LR
 
         private void ListView1_LR_MouseDoubleClick_3(object sender, MouseEventArgs e)
         {
-            int index;
-            index = ListView1_LR.FocusedItem.Index;
-            Id = int.Parse(ListView1_LR.Items[index].SubItems[0].Text);
-
-
-            textBox1.Text = ListView1_LR.Items[index].SubItems[1].Text;
-
-            textBox2.Text = ListView1_LR.Items[index].SubItems[2].Text;
+            
         }
 
         private void ListView1_LR_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Form7 form7 = new Form7();
+            form7.Show();
         }
     }
 }
