@@ -190,7 +190,9 @@ namespace Atividade_pr2_LR
                 {
                     builder.Append(bytes[i].ToString("x2"));
                 }
-                return builder.ToString();//é
+
+                return builder.ToString();
+
             }
         }
 
