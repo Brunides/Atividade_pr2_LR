@@ -16,7 +16,7 @@ namespace Atividade_pr2_LR
         private string _nOME;
         private string _e_MAIL;
 
-
+        
         public Usuario(int id, int telefone,string nome, string email,string user, string password)
         {
             Id= id;
