@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Mail;
+using System.Net;
 
 namespace Atividade_pr2_LR
 {
@@ -25,18 +27,19 @@ namespace Atividade_pr2_LR
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string NOME = maskedTextBox1.Text, E_MAIL = maskedTextBox3.Text;
-            string TELEFONE = maskedTextBox2.Text;
+           
+            string  EMAIL = textBox2.Text;
+            string TELEFONE = maskedTextBox1.Text;
 
             conexao1 connection = new conexao1();
             SqlCommand sqlCommand = new SqlCommand();
 
             sqlCommand.Connection = connection.ReturnConnection();
             sqlCommand.CommandText = @"INSERT INTO TABLE_LRCD VALUES
-            (@NOME, @TELEFONE,@E_MAIL)";
-            sqlCommand.Parameters.AddWithValue("@NOME", NOME);
+            (@NOME, @TELEFONE,@Email)";
+            sqlCommand.Parameters.AddWithValue("@NOME", textBox1.Text);
             sqlCommand.Parameters.AddWithValue("@TELEFONE", TELEFONE);
-            sqlCommand.Parameters.AddWithValue("@E_MAIL", E_MAIL);
+            sqlCommand.Parameters.AddWithValue("@Email", EMAIL);
             sqlCommand.ExecuteNonQuery();
 
             MessageBox.Show(
@@ -47,8 +50,20 @@ namespace Atividade_pr2_LR
                            );
 
             maskedTextBox1.Clear();
-            maskedTextBox3.Clear();
-            maskedTextBox2.Clear();
+            textBox1.Clear();
+            textBox2.Clear();
+           
+
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
 
         }
     }

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 
 using System.Linq.Expressions;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,7 +109,7 @@ namespace Atividade_pr2_LR
         private void button1_Click_1(object sender, EventArgs e)
         {
 
-            
+         
            
 
             if (string.IsNullOrEmpty(textBox2.Text))
@@ -134,9 +135,12 @@ namespace Atividade_pr2_LR
                             try
                             {
                                 Usuario usuario1 = new Usuario(Id, textBox1.Text, textBox2.Text);
+                               
+                                string senha = textBox2.Text;
+                                string senhaCriptografada = CalcularSHA256(senha);
+                                MessageBox.Show("A senha criptografada é: " + senhaCriptografada);
                                 UsuarioDAO dAO = new UsuarioDAO();
-                                dAO.Insertuser(Id, textBox1.Text, textBox2.Text);
-
+                                dAO.Insertuser(Id, textBox1.Text, senhaCriptografada);
                                 MessageBox.Show(
                             "Login realizado com sucesso !",
                             "AVISO",
@@ -259,5 +263,13 @@ namespace Atividade_pr2_LR
             Form7 form7 = new Form7();
             form7.Show();
         }
+       
+
+
+        
+       
+
+      
     }
+
 }
