@@ -116,7 +116,43 @@ namespace Atividade_pr2_LR
             }
             return list;
         }
-        
+        public List<Usuario> SelectUser2()
+        {
+
+
+            conexao1 conn = new conexao1();
+            SqlCommand sqlCom = new SqlCommand();
+
+            sqlCom.Connection = conn.ReturnConnection();
+            sqlCom.CommandText = "SELECT * FROM TABLE_LRCD ";
+
+            List<Usuario> list = new List<Usuario>();
+            try
+            {
+                SqlDataReader dr = sqlCom.ExecuteReader();
+
+                //Enquanto for possível continuar a leitura das linhas que foram retornadas na consulta, execute.
+                while (dr.Read())
+                {
+                    Usuario objet = new Usuario(
+                    (int)dr["ID"],
+                    (string)dr["NOME"],
+                    (string)dr["TELEFONE"],
+                    (string)dr["E-mail"]);
+                    list.Add(objet);
+                }
+                dr.Close();
+            }
+            catch (Exception err)
+            {
+                throw new Exception("Erro na Leitura." + err.Message);
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
+            return list;
+        }
     }
     }
 
